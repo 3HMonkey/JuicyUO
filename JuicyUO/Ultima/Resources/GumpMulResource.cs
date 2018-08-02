@@ -34,9 +34,7 @@ namespace JuicyUO.Ultima.Resources
 {
     public class GumpMulResource
     {
-        AFileIndex m_FileIndex = ClientVersion.InstallationIsUopFormat ?
-            FileManager.CreateFileIndex("gumpartLegacyMUL.uop", 0xFFFF, true, ".tga") :
-            FileManager.CreateFileIndex("Gumpidx.mul", "Gumpart.mul", 0x10000, 12);
+        AFileIndex m_FileIndex = ClientVersion.InstallationIsUopFormat ? FileManager.CreateFileIndex("gumpartLegacyMUL.uop", 0xFFFF, true, ".tga") : FileManager.CreateFileIndex("Gumpidx.mul", "Gumpart.mul", 0x10000, 12);
         GraphicsDevice m_graphicsDevice;
         readonly PixelPicking m_Picking = new PixelPicking();
         Texture2D[] m_TextureCache = new Texture2D[0x10000];

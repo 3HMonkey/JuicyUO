@@ -27,13 +27,14 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using JuicyUO.Core.Diagnostics.Tracing;
+using JuicyUO.Ultima.Resources;
 #endregion
 
 namespace JuicyUO.Core.Graphics
 {
     public class SpriteBatch3D
     {
-        private const int MAX_VERTICES_PER_DRAW = 0x4000;
+        private const int MAX_VERTICES_PER_DRAW = 0x4000; //0x4000
         private const int INITIAL_TEXTURE_COUNT = 0x800;
         private const float MAX_ACCURATE_SINGLE_FLOAT = 65536; // this number is somewhat arbitrary; it's the number at which the
         // difference between two subsequent integers is +/-0.005. See http://stackoverflow.com/questions/872544/precision-of-floating-point
@@ -61,6 +62,8 @@ namespace JuicyUO.Core.Graphics
             m_VertexListQueue = new Queue<List<VertexPositionNormalTextureHue>>(INITIAL_TEXTURE_COUNT);
 
             m_Effect = m_Game.Content.Load<Effect>("Shaders/IsometricWorld");
+
+            m_Effect.Parameters["HuesPerTexture"].SetValue(2048f);
         }
 
         public GraphicsDevice GraphicsDevice
@@ -121,7 +124,7 @@ namespace JuicyUO.Core.Graphics
                 }
             }
             if (!draw)
-                return false;
+               return false;
 
             // Set the draw position's z value, and increment the z value for the next drawn object.
             vertices[0].Position.Z = vertices[1].Position.Z = vertices[2].Position.Z = vertices[3].Position.Z = GetNextUniqueZ();
@@ -230,10 +233,23 @@ namespace JuicyUO.Core.Graphics
                 IEnumerator<KeyValuePair<Texture2D, List<VertexPositionNormalTextureHue>>> vertexEnumerator = m_DrawQueue[(int)effect].GetEnumerator();
                 while (vertexEnumerator.MoveNext())
                 {
+                    //Texture2D texture = vertexEnumerator.Current.Key;
+                    //List<VertexPositionNormalTextureHue> vertexList = vertexEnumerator.Current.Value;
+                    //GraphicsDevice.Textures[0] = texture;
+                    //GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, CopyVerticesToArray(vertexList), 0,  Math.Min(vertexList.Count,MAX_VERTICES_PER_DRAW), m_IndexBuffer, 0, vertexList.Count / 2);
+                    //vertexList.Clear();
+                    //m_VertexListQueue.Enqueue(vertexList);
                     Texture2D texture = vertexEnumerator.Current.Key;
                     List<VertexPositionNormalTextureHue> vertexList = vertexEnumerator.Current.Value;
                     GraphicsDevice.Textures[0] = texture;
-                    GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, CopyVerticesToArray(vertexList), 0,  Math.Min(vertexList.Count,MAX_VERTICES_PER_DRAW), m_IndexBuffer, 0, vertexList.Count / 2);
+
+                    if (effect == Techniques.Hued)
+                    {
+                        GraphicsDevice.Textures[1] = HueData.HueTexture0;
+                        GraphicsDevice.Textures[2] = HueData.HueTexture1;
+                    }
+
+                    GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, CopyVerticesToArray(vertexList), 0, vertexList.Count, m_IndexBuffer, 0, vertexList.Count / 2);
                     vertexList.Clear();
                     m_VertexListQueue.Enqueue(vertexList);
                 }

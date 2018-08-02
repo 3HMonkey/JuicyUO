@@ -65,7 +65,7 @@ namespace JuicyUO.Configuration
         /// </summary>
         public string DataDirectory
         {
-            get { return @"D:\Ultima Online 2D Client"; }
+            get { return @"D:\Program Files (x86)\Electronic Arts\Ultima Online Classic"; }
             set { SetProperty(ref m_DataDirectory, value); }
         }
 
