@@ -19,6 +19,7 @@ float lightIntensity;
 const float HuesPerTexture = 2048;
 const float ToGrayScale = 3;
 
+
 sampler DrawSampler : register(s0);
 sampler HueSampler0 : register(s1);
 sampler HueSampler1 : register(s2);
@@ -61,8 +62,13 @@ float4 PixelShader_Hue(PS_INPUT IN) : COLOR0
 {	
 	// Get the initial pixel and discard it if the alpha == 0
 	float4 color = tex2D(DrawSampler, IN.TexCoord);
+	
+	
 	if (color.a == 0)
+	{
 		discard;
+	}
+	
 
 	// flag for no lighting
 	bool drawLighting = true;
@@ -115,6 +121,9 @@ float4 PixelShader_Hue(PS_INPUT IN) : COLOR0
 	}
 
 	return color;
+	
+	
+	
 }
 
 float4 PixelShader_MiniMap(PS_INPUT IN) : COLOR0
@@ -131,6 +140,7 @@ float4 PixelShader_MiniMap(PS_INPUT IN) : COLOR0
 	
 
 	return color;
+
 }
 
 float4 PixelShader_Grayscale(PS_INPUT IN) : COLOR0

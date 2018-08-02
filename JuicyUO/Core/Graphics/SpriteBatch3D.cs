@@ -104,6 +104,7 @@ namespace JuicyUO.Core.Graphics
         /// <returns>True if the object was drawn, false otherwise.</returns>
         public bool DrawSprite(Texture2D texture, VertexPositionNormalTextureHue[] vertices, Techniques effect = Techniques.Default)
         {
+            
             bool draw = false;
 
             // Sanity: do not draw if there is no texture to draw with.
