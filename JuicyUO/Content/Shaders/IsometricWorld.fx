@@ -20,10 +20,31 @@ const float HuesPerTexture = 2048;
 const float ToGrayScale = 3;
 
 
-sampler DrawSampler : register(s0);
-sampler HueSampler0 : register(s1);
-sampler HueSampler1 : register(s2);
-sampler MiniMapSampler : register(s3);
+
+Texture2D DrawTexture;
+Texture2D HueTexture0;
+Texture2D HueTexture1;
+Texture2D MiniMapTexture;
+
+sampler2D DrawSampler = sampler_state
+{
+	Texture = (DrawTexture);
+};
+sampler2D HueSampler0 = sampler_state
+{
+	Texture = (HueTexture0);
+};
+sampler2D HueSampler1 = sampler_state
+{
+	Texture = (HueTexture1);
+};
+sampler2D MiniMapSampler = sampler_state
+{
+	Texture = (MiniMapTexture);
+};
+
+
+//sampler MiniMapSampler : register(s3);
 
 struct VS_INPUT
 {
@@ -48,8 +69,8 @@ PS_INPUT VertexShaderFunction(VS_INPUT IN)
 	OUT.Position = mul(mul(IN.Position, WorldMatrix), ProjectionMatrix);
 	
 	// Half pixel offset for correct texel centering.
-	OUT.Position.x -= 0.5 / Viewport.x;
-	OUT.Position.y += 0.5 / Viewport.y;
+	//OUT.Position.x -= 0.5 / Viewport.x;
+	//OUT.Position.y += 0.5 / Viewport.y;
 
 	OUT.TexCoord = IN.TexCoord; 
 	OUT.Normal = IN.Normal;
@@ -68,6 +89,8 @@ float4 PixelShader_Hue(PS_INPUT IN) : COLOR0
 	{
 		discard;
 	}
+
+	
 	
 
 	// flag for no lighting
@@ -92,6 +115,7 @@ float4 PixelShader_Hue(PS_INPUT IN) : COLOR0
 			hueColor = tex2D(HueSampler0, float2(inHueIndex, IN.Hue.x / HuesPerTexture));
 		}
 		hueColor.a = color.a;
+		
 
 		if (IN.Hue.y >= 2) 
 		{

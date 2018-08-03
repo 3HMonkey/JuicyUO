@@ -240,13 +240,15 @@ namespace JuicyUO.Core.Graphics
                     //vertexList.Clear();
                     //m_VertexListQueue.Enqueue(vertexList);
                     Texture2D texture = vertexEnumerator.Current.Key;
+                    
                     List<VertexPositionNormalTextureHue> vertexList = vertexEnumerator.Current.Value;
                     GraphicsDevice.Textures[0] = texture;
-
+                   
                     if (effect == Techniques.Hued)
                     {
-                        GraphicsDevice.Textures[1] = HueData.HueTexture0;
-                        GraphicsDevice.Textures[2] = HueData.HueTexture1;
+                        m_Effect.Parameters["HueTexture0"].SetValue(HueData.HueTexture0);
+                        m_Effect.Parameters["HueTexture1"].SetValue(HueData.HueTexture1);
+                                           
                     }
 
                     GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, CopyVerticesToArray(vertexList), 0, vertexList.Count, m_IndexBuffer, 0, vertexList.Count / 2);

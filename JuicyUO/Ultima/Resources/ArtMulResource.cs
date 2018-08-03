@@ -138,6 +138,8 @@ namespace JuicyUO.Ultima.Resources
             }
             Texture2D texture = new Texture2D(m_Graphics, 44, 44, false, SurfaceFormat.Bgra5551);
             texture.SetData(pixels);
+
+
             return texture;
         }
 

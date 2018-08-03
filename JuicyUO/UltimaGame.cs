@@ -76,6 +76,7 @@ namespace JuicyUO
             // Make sure we have a UO installation before loading IO.
             if (FileManager.IsUODataPresent)
             {
+                
                 // Initialize and load data
                 IResourceProvider provider = new ResourceProvider(this);
                 provider.RegisterResource(new EffectDataResource());
