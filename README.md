@@ -12,3 +12,9 @@ JuicyUO currently supports only Windows-Systems.
 * Windows 7 (DirectX 11)
 * Windows 8 (DirectX 11)
 * Windows 10 (DirectX 12)
+
+## Compile (for Windows)
+To compile JuicyUO (for contribution for example) you will need to install some dependencies:
+* Monogame 3.6
+* DirectX SDK
+* Visual Studio 2017
