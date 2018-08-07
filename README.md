@@ -1,7 +1,7 @@
 # JuicyUO
 JuicyUO is an alternative client of the game Ultima Online. It provides modern technologies in the form of an open source project. Furthermore it is build on a forked project called UltimaXNA and finally updated to MonoGame.
 
-![alt tag](https://imgur.com/a/NVh9zNk)
+![alt tag](https://i.imgur.com/0LfmrvS.png)
 
 ## Used Technologies
 * DirectX11 and higher (MonoGame including SharpDX)
