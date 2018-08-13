@@ -350,6 +350,7 @@
     <Compile Include="Ultima\Network\Server\ChangeCombatantPacket.cs" />
     <Compile Include="Ultima\Network\Server\CharacterCityListPacket.cs" />
     <Compile Include="Ultima\Network\Server\CharacterListUpdatePacket.cs" />
+    <Compile Include="Ultima\Network\Server\HealthBarStatusPacket.cs" />
     <Compile Include="Ultima\Network\Server\ChatPacket.cs" />
     <Compile Include="Ultima\Network\Server\CompressedGumpPacket.cs" />
     <Compile Include="Ultima\Network\Server\ContainerContentPacket.cs" />
@@ -391,6 +392,7 @@
     <Compile Include="Ultima\Network\Server\MobileUpdatePacket.cs" />
     <Compile Include="Ultima\Network\Server\MoveAcknowledgePacket.cs" />
     <Compile Include="Ultima\Network\Server\MovementRejectPacket.cs" />
+    <Compile Include="Ultima\Network\Server\ObjectInfoPacketSA.cs" />
     <Compile Include="Ultima\Network\Server\ObjectInfoPacket.cs" />
     <Compile Include="Ultima\Network\Server\ObjectPropertyListPacket.cs" />
     <Compile Include="Ultima\Network\Server\ObjectPropertyListUpdatePacket.cs" />

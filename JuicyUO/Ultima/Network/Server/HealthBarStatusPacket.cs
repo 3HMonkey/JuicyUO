@@ -28,27 +28,24 @@ using JuicyUO.Core.Network.Packets;
 
 namespace JuicyUO.Ultima.Network.Server
 {
-    public class DisplayMenuPacket : RecvPacket
+    public class HealthBarStatusPacket : RecvPacket
     {
-        public readonly int BlockSize;          // BYTE[2]
-        public readonly int DialogID;           // BYTE[4]
-        public readonly int MenuID;             // BYTE[2]
-        public readonly int LengthOfQuestion;   // BYTE[1]
-        public readonly string QuestionText;    // BYTE[length of q]
-        public readonly int NumberOfResponses;  // BYTE[1]
+        public readonly ushort Length;
+        public readonly Serial Serial;
+        public readonly ushort Fixed;
+        public readonly ushort HealthBarHue;
+        public readonly byte Flag;
 
-        public DisplayMenuPacket(PacketReader reader)
-            : base(0x7C, "Display Menu")
+
+        public HealthBarStatusPacket(PacketReader reader)
+            : base(0x17, "Health Bar Status Update")
         {
-            // TODO: Write this packet.
-            BlockSize = reader.ReadInt16();
-            DialogID = reader.ReadInt32();
-            MenuID = reader.ReadInt16();
-            LengthOfQuestion = reader.ReadByte();
-            QuestionText = reader.ReadString();
-            NumberOfResponses = reader.ReadByte();
-
-            System.Console.WriteLine(BlockSize);
+            Length = reader.ReadUInt16();
+            Length = reader.ReadUInt16();
+            Length = reader.ReadUInt16();
+            Length = reader.ReadUInt16();
+            Length = reader.ReadUInt16();
+            Length = reader.ReadUInt16();
         }
     }
 }

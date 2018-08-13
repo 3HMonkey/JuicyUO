@@ -72,6 +72,7 @@ namespace JuicyUO.Ultima.World
         {
             Register<DamagePacket>(0x0B, 0x07, ReceiveDamage);
             Register<StatusInfoPacket>(0x11, -1, ReceiveStatusInfo);
+            Register<ObjectInfoPacketSA>(0xF3, 24, RecieveWorldItemSA);
             Register<ObjectInfoPacket>(0x1A, -1, ReceiveWorldItem);
             Register<AsciiMessagePacket>(0x1C, -1, ReceiveAsciiMessage);
             Register<RemoveEntityPacket>(0x1D, 5, ReceiveDeleteObject);
@@ -143,6 +144,7 @@ namespace JuicyUO.Ultima.World
             Register<ObjectPropertyListUpdatePacket>(0xDC, 9, ReceiveToolTipRevision);
             Register<CompressedGumpPacket>(0xDD, -1, ReceiveCompressedGump);
             Register<ProtocolExtensionPacket>(0xF0, -1, ReceiveProtocolExtension);
+            Register<HealthBarStatusPacket>(0x17, 12, OnHealthBarStatusUpdate);
             /* Deprecated (not used by RunUO) and/or not implmented
              * Left them here incase we need to implement in the future
             network.Register<HealthBarStatusPacket>(0x17, 12, OnHealthBarStatusUpdate);
@@ -164,6 +166,27 @@ namespace JuicyUO.Ultima.World
             network.Register<RecvPacket>(0xE2, -1, OnMobileStatusAnimationUpdate);
             */
             MobileMovement.SendMoveRequestPacket += InternalOnEntity_SendMoveRequestPacket;
+        }
+
+        private void OnHealthBarStatusUpdate(HealthBarStatusPacket p)
+        {
+            AnnounceUnhandledPacket(p);
+        }
+
+        private void RecieveWorldItemSA(ObjectInfoPacketSA p)
+        {
+            if (p.DataType == 0x00)
+            {
+                Item item = CreateItem(p.Serial, p.ItemID, p.Hue, p.Amount);
+                item.Position.Set(p.X, p.Y, p.Z);
+            }
+            if (p.DataType == 0x02)
+            {
+                int multiID = p.ItemID;
+                Multi multi = WorldModel.Entities.GetObject<Multi>(p.Serial, true);
+                multi.Position.Set(p.X, p.Y, p.Z);
+                multi.MultiID = p.ItemID;
+            }
         }
 
         public void Dispose()

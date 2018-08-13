@@ -37,8 +37,10 @@ namespace JuicyUO.Configuration
 
         public LoginSettings()
         {
-            ServerAddress = "login.uoforever.com";
-            ServerPort = 2599;
+            //ServerAddress = "login.uoforever.com";
+            //ServerPort = 2599;
+            ServerAddress = "127.0.0.1";
+            ServerPort = 2593;
             LastCharacterName = string.Empty;
             AutoSelectLastCharacter = false;
         }

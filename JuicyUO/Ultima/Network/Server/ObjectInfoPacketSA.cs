@@ -29,38 +29,40 @@ using JuicyUO.Core.Network.Packets;
 
 namespace JuicyUO.Ultima.Network.Server
 {
-    public class ObjectInfoPacket : RecvPacket
+    public class ObjectInfoPacketSA : RecvPacket
     {
+        public readonly ushort OsiID;
+        public readonly sbyte DataType;
         public readonly Serial Serial;
         public readonly ushort ItemID;
+        public readonly sbyte Facing;
         public readonly ushort Amount;
+        public readonly ushort Unknown;
         public readonly short X;
         public readonly short Y;
         public readonly sbyte Z;
-        public readonly byte Direction;
+        public readonly sbyte Layer;
         public readonly ushort Hue;
         public readonly byte Flags;
+        public readonly ushort Unknown2;
 
-        public ObjectInfoPacket(PacketReader reader)
-            : base(0x1A, "ObjectInfoPacket")
+        public ObjectInfoPacketSA(PacketReader reader)
+            : base(0xF3, "ObjectInfoPacketSA")
         {
+            OsiID = reader.ReadUInt16();
+            DataType = reader.ReadSByte();
             Serial = reader.ReadInt32();
             ItemID = reader.ReadUInt16();
-
-            //Tracer.Info("###################### " + Serial);
-
-            Amount = (ushort)(((Serial & 0x80000000) == 0x80000000) ? reader.ReadUInt16() : 0);
-
+            Facing = reader.ReadSByte();
+            Amount = reader.ReadUInt16();
+            Unknown = reader.ReadUInt16();
             X = reader.ReadInt16();
             Y = reader.ReadInt16();
-                        
-            Direction = (byte)(((X & 0x8000) == 0x8000) ? reader.ReadByte() : 0);
-
             Z = reader.ReadSByte();
-
-            Hue = (ushort)(((Y & 0x8000) == 0x8000) ? reader.ReadUInt16() : 0);
-
-            Flags = (byte)(((Y & 0x4000) == 0x4000) ? reader.ReadByte() : 0);
+            Layer = reader.ReadSByte();
+            Hue = reader.ReadUInt16();
+            Flags = reader.ReadByte();
+            Unknown2 = reader.ReadUInt16();
 
             // sanitize values
             Serial = (int)(Serial & 0x7FFFFFFF);

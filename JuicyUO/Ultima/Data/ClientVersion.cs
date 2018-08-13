@@ -31,7 +31,7 @@ namespace JuicyUO.Ultima.Data {
         // We are focusing our efforts on getting a specific version of the client working.
         // Once we have this version working, we will attempt to support additional versions.
         // We will not support any issues you experience after changing this value.
-        public static readonly byte[] DefaultVersion = { 6, 0, 14, 2 };
+        public static readonly byte[] DefaultVersion = { 7, 0, 0, 0 };
 
         static readonly byte[] m_UnknownClientVersion = { 0, 0, 0, 0 };
         static readonly byte[] m_ExtendedAddItemToContainer = { 6, 0, 1, 7 };
